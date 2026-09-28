@@ -39,7 +39,7 @@ export const ProgressCard: React.FC<Props> = ({ tasks, doneTaskIds, isBengali })
   );
 
   return (
-    <div className="rounded-3xl border p-4 sm:p-5 bg-white dark:bg-[#13161c] border-slate-200/80 dark:border-slate-800/80 shadow-xs space-y-4">
+    <div className="border p-4 sm:p-5 bg-white dark:bg-[#13161c] border-slate-200/90 dark:border-slate-800 shadow-xs space-y-4">
       {/* Top stats block */}
       <div className="flex items-center gap-4">
         {/* Modern Circular Ring */}
@@ -63,7 +63,6 @@ export const ProgressCard: React.FC<Props> = ({ tasks, doneTaskIds, isBengali })
               fill="none"
               stroke="currentColor"
               strokeWidth="7"
-              strokeLinecap="round"
               strokeDasharray={circumference}
               strokeDashoffset={offset}
               className="text-blue-600 dark:text-blue-400 transition-all duration-700 ease-out"
@@ -98,9 +97,9 @@ export const ProgressCard: React.FC<Props> = ({ tasks, doneTaskIds, isBengali })
         </div>
       </div>
 
-      {/* Category breakdown bar */}
+      {/* Category breakdown bar with sharp square edges */}
       {totalMinutes > 0 && sortedCategories.length > 0 && (
-        <div className="pt-3 border-t border-slate-100 dark:border-slate-800/80">
+        <div className="pt-3 border-t border-slate-100 dark:border-slate-800">
           <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-2">
             <span className="font-medium">{t.categoryBreakdown}</span>
             <span className="tabular-nums font-semibold">
@@ -108,8 +107,8 @@ export const ProgressCard: React.FC<Props> = ({ tasks, doneTaskIds, isBengali })
             </span>
           </div>
 
-          {/* Stacked multi-colored bar */}
-          <div className="h-2 w-full rounded-full overflow-hidden flex bg-slate-100 dark:bg-slate-800 gap-0.5">
+          {/* Stacked multi-colored bar with square edges */}
+          <div className="h-2 w-full overflow-hidden flex bg-slate-100 dark:bg-slate-800 gap-0.5">
             {sortedCategories.map((cat) => {
               const mins = catMinutes[cat] || 0;
               const pct = (mins / totalMinutes) * 100;
@@ -134,7 +133,7 @@ export const ProgressCard: React.FC<Props> = ({ tasks, doneTaskIds, isBengali })
                 <div key={cat} className="flex items-center justify-between text-xs py-0.5">
                   <span className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 truncate">
                     <span
-                      className="w-2 h-2 rounded-full shrink-0"
+                      className="w-2 h-2 shrink-0"
                       style={{ backgroundColor: meta?.color }}
                     />
                     <span className="truncate font-medium">{t.categories[cat]}</span>

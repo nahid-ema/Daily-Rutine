@@ -6,6 +6,17 @@
     --font-google-text: 'Google Sans Text', 'Google Sans', 'Noto Sans Bengali', system-ui, sans-serif;
   }
 
+  /* Zoomed-out compact scaling: fits more routine tasks, hours, and cards on screen */
+  html {
+    font-size: 13.5px;
+  }
+
+  @media (min-width: 768px) {
+    html {
+      font-size: 13px;
+    }
+  }
+
   body {
     font-family: var(--font-google-sans);
     -webkit-font-smoothing: antialiased;
@@ -28,21 +39,20 @@
 }
 
 .scrollbar-thin::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 .scrollbar-thin::-webkit-scrollbar-track {
   background: transparent;
 }
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.35);
-  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.3);
 }
 .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.6);
+  background: rgba(148, 163, 184, 0.5);
 }
 
-/* Google-style ripple and button transitions */
+/* Google-style tap highlight removal */
 button, a {
   -webkit-tap-highlight-color: transparent;
 }

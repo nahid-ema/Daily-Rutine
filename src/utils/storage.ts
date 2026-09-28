@@ -58,8 +58,8 @@ export function getInitialState(): RoutineState {
       if (parsed && typeof parsed === 'object' && parsed.days) {
         const days: Record<number, Task[]> = {};
         for (let d = 0; d < 7; d++) {
-          const arr = parsed.days[d];
-          days[d] = Array.isArray(arr) ? arr.map(normalizeTask) : [];
+          const arr = parsed.days ? parsed.days[d] : null;
+          days[d] = Array.isArray(arr) ? arr.map(normalizeTask) : buildDayTasksFromTemplate(PRESET_DEFAULT_TASKS);
         }
 
         return {

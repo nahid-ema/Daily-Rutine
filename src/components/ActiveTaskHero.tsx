@@ -35,9 +35,9 @@ export const ActiveTaskHero: React.FC<Props> = ({
   }
 
   return (
-    <div className="rounded-3xl border p-4 sm:p-5 bg-gradient-to-br from-blue-500/10 via-slate-50 to-indigo-500/10 dark:from-blue-950/40 dark:via-[#151922] dark:to-indigo-950/25 border-blue-500/25 dark:border-blue-500/20 shadow-sm relative overflow-hidden">
+    <div className="border p-4 sm:p-5 bg-gradient-to-br from-blue-500/10 via-slate-50 to-indigo-500/10 dark:from-blue-950/40 dark:via-[#151922] dark:to-indigo-950/25 border-blue-500/25 dark:border-blue-500/20 shadow-xs relative overflow-hidden">
       {/* Decorative ambient blurred orb */}
-      <div className="absolute -right-8 -top-8 w-36 h-36 rounded-full bg-blue-500/15 blur-2xl pointer-events-none" />
+      <div className="absolute -right-8 -top-8 w-36 h-36 bg-blue-500/15 blur-2xl pointer-events-none" />
 
       {currentTask ? (
         <div className="relative">
@@ -45,8 +45,8 @@ export const ActiveTaskHero: React.FC<Props> = ({
           <div className="flex items-center justify-between gap-2 mb-2">
             <div className="inline-flex items-center gap-2 text-xs font-bold text-blue-700 dark:text-blue-300">
               <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-600" />
+                <span className="animate-ping absolute inline-flex h-full w-full bg-blue-400 opacity-75" />
+                <span className="relative inline-flex h-2.5 w-2.5 bg-blue-600" />
               </span>
               <span className="uppercase tracking-wider text-[11px]">{t.now}</span>
               <span className="text-slate-300 dark:text-slate-700">·</span>
@@ -80,7 +80,7 @@ export const ActiveTaskHero: React.FC<Props> = ({
             <button
               type="button"
               onClick={() => onToggleDone(currentTask.id)}
-              className={`shrink-0 px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all shadow-xs ${
+              className={`shrink-0 px-3.5 py-2 text-xs font-semibold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer ${
                 isDone
                   ? 'bg-emerald-600 text-white'
                   : 'bg-blue-600 hover:bg-blue-700 text-white'
@@ -91,11 +91,11 @@ export const ActiveTaskHero: React.FC<Props> = ({
             </button>
           </div>
 
-          {/* Smooth progress bar */}
+          {/* Progress bar with square edges */}
           <div className="mt-3.5">
-            <div className="h-2 w-full bg-slate-200/70 dark:bg-slate-800 rounded-full overflow-hidden p-0.5">
+            <div className="h-2 w-full bg-slate-200/70 dark:bg-slate-800 overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-blue-600 to-indigo-500 rounded-full transition-all duration-500"
+                className="h-full bg-gradient-to-r from-blue-600 to-indigo-500 transition-all duration-500"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
@@ -120,7 +120,7 @@ export const ActiveTaskHero: React.FC<Props> = ({
         /* No active task right now */
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
               <Sparkles size={20} />
             </div>
             <div>
@@ -136,7 +136,7 @@ export const ActiveTaskHero: React.FC<Props> = ({
           </div>
 
           {nextTask && (
-            <div className="text-xs font-semibold text-blue-700 dark:text-blue-300 self-end sm:self-auto tabular-nums bg-blue-50 dark:bg-blue-950/60 px-3 py-1.5 rounded-full border border-blue-200/80 dark:border-blue-800/60">
+            <div className="text-xs font-semibold text-blue-700 dark:text-blue-300 self-end sm:self-auto tabular-nums bg-blue-50 dark:bg-blue-950/60 px-3 py-1.5 border border-blue-200/80 dark:border-blue-800/60">
               {t.start}: {formatTime(nextTask.start, isBengali, format12h)}
             </div>
           )}

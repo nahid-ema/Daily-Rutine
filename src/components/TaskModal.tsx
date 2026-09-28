@@ -90,9 +90,9 @@ export const TaskModal: React.FC<Props> = ({
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="w-full sm:max-w-lg bg-white dark:bg-[#13161c] border border-slate-200/90 dark:border-slate-800 rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden animate-in fade-in-0 zoom-in-95 duration-200 max-h-[92vh] flex flex-col">
+      <div className="w-full sm:max-w-lg bg-white dark:bg-[#13161c] border border-slate-200/90 dark:border-slate-800 shadow-2xl overflow-hidden animate-in fade-in-0 zoom-in-95 duration-150 max-h-[92vh] flex flex-col">
         {/* Mobile drag handle */}
-        <div className="w-12 h-1 bg-slate-300 dark:bg-slate-700 rounded-full mx-auto my-3 sm:hidden" />
+        <div className="w-12 h-1 bg-slate-300 dark:bg-slate-700 mx-auto my-3 sm:hidden" />
 
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-slate-800">
@@ -102,14 +102,14 @@ export const TaskModal: React.FC<Props> = ({
           <button
             type="button"
             onClick={onClose}
-            className="w-9 h-9 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="w-9 h-9 flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
           >
             <X size={18} />
           </button>
         </div>
 
-        {/* Form Body */}
-        <form onSubmit={handleSubmit} className="p-6 space-y-4.5 overflow-y-auto flex-1">
+        {/* Form Body with Square Edges */}
+        <form onSubmit={handleSubmit} className="p-6 space-y-4.5 overflow-y-auto flex-1 text-xs">
           {/* Title input */}
           <div>
             <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
@@ -126,7 +126,7 @@ export const TaskModal: React.FC<Props> = ({
                 if (error) setError(null);
               }}
               placeholder={t.titlePlaceholder}
-              className="w-full px-4 py-2.5 rounded-2xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-medium"
+              className="w-full px-3.5 py-2.5 border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm font-medium"
             />
           </div>
 
@@ -142,7 +142,7 @@ export const TaskModal: React.FC<Props> = ({
                   required
                   value={start}
                   onChange={(e) => setStart(e.target.value)}
-                  className="w-full px-4 py-2 rounded-2xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 text-sm font-semibold tabular-nums focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3.5 py-2 border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 text-sm font-semibold tabular-nums focus:outline-none focus:ring-1 focus:ring-blue-500"
                 />
               </div>
             </div>
@@ -157,7 +157,7 @@ export const TaskModal: React.FC<Props> = ({
                   required
                   value={end}
                   onChange={(e) => setEnd(e.target.value)}
-                  className="w-full px-4 py-2 rounded-2xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 text-sm font-semibold tabular-nums focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full px-3.5 py-2 border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 text-sm font-semibold tabular-nums focus:outline-none focus:ring-1 focus:ring-blue-500"
                 />
               </div>
             </div>
@@ -174,7 +174,7 @@ export const TaskModal: React.FC<Props> = ({
                   key={mins}
                   type="button"
                   onClick={() => handleAddDuration(mins)}
-                  className="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-950/60 dark:hover:text-blue-400 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 transition-colors"
+                  className="px-3 py-1 text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-blue-50 hover:text-blue-600 dark:hover:bg-blue-950/60 dark:hover:text-blue-400 text-slate-700 dark:text-slate-300 border border-slate-200/90 dark:border-slate-700 transition-colors cursor-pointer"
                 >
                   +{mins >= 60 ? `${mins / 60}h` : `${mins}m`}
                 </button>
@@ -196,14 +196,14 @@ export const TaskModal: React.FC<Props> = ({
                     key={cKey}
                     type="button"
                     onClick={() => setCat(cKey)}
-                    className={`flex items-center gap-2 p-2.5 rounded-2xl border text-xs font-semibold text-left transition-all ${
+                    className={`flex items-center gap-2 p-2.5 border text-xs font-semibold text-left transition-all cursor-pointer ${
                       isSelected
-                        ? 'border-blue-600 bg-blue-50/70 dark:bg-blue-950/40 text-blue-800 dark:text-blue-200 ring-2 ring-blue-500/20'
-                        : 'border-slate-200 dark:border-slate-700/80 bg-slate-50/50 dark:bg-slate-800/40 text-slate-700 dark:text-slate-300 hover:border-slate-300'
+                        ? 'border-blue-600 bg-blue-50/70 dark:bg-blue-950/40 text-blue-800 dark:text-blue-200'
+                        : 'border-slate-200 dark:border-slate-700/80 bg-slate-50/50 dark:bg-slate-800/40 text-slate-700 dark:text-slate-300 hover:border-slate-400'
                     }`}
                   >
                     <span
-                      className="w-6 h-6 rounded-lg flex items-center justify-center shrink-0"
+                      className="w-6 h-6 flex items-center justify-center shrink-0"
                       style={{
                         backgroundColor: meta.color + '20',
                         color: meta.color,
@@ -237,13 +237,13 @@ export const TaskModal: React.FC<Props> = ({
                     key={pKey}
                     type="button"
                     onClick={() => setPrio(pKey)}
-                    className={`flex items-center justify-center gap-2 py-2 rounded-2xl border text-xs font-bold transition-all ${
+                    className={`flex items-center justify-center gap-2 py-2 border text-xs font-bold transition-all cursor-pointer ${
                       isSelected
-                        ? 'border-blue-600 bg-blue-50/80 dark:bg-blue-950/50 text-blue-800 dark:text-blue-200 ring-2 ring-blue-500/20'
+                        ? 'border-blue-600 bg-blue-50/80 dark:bg-blue-950/50 text-blue-800 dark:text-blue-200'
                         : 'border-slate-200 dark:border-slate-700/80 bg-slate-50/50 dark:bg-slate-800/40 text-slate-700 dark:text-slate-300'
                     }`}
                   >
-                    <span className={`w-2 h-2 rounded-full ${dotColor}`} />
+                    <span className={`w-2 h-2 ${dotColor}`} />
                     <span>{t[pKey]}</span>
                   </button>
                 );
@@ -261,30 +261,30 @@ export const TaskModal: React.FC<Props> = ({
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder={t.notesPlaceholder}
-              className="w-full px-4 py-2.5 rounded-2xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm resize-none font-medium"
+              className="w-full px-3.5 py-2.5 border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm resize-none font-medium"
             />
           </div>
 
           {/* Error Message */}
           {error && (
-            <div className="flex items-center gap-2 text-xs text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/30 p-3 rounded-2xl border border-rose-200 dark:border-rose-900/50 font-semibold">
+            <div className="flex items-center gap-2 text-xs text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/30 p-3 border border-rose-200 dark:border-rose-900/50 font-semibold">
               <AlertCircle size={15} className="shrink-0" />
               <span>{error}</span>
             </div>
           )}
 
-          {/* Action Buttons */}
+          {/* Action Buttons with Square Edges */}
           <div className="pt-2 flex items-center justify-end gap-2.5">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2.5 rounded-full text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+              className="px-4 py-2 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
             >
               {t.cancel}
             </button>
             <button
               type="submit"
-              className="px-6 py-2.5 rounded-full text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-500/25 transition-all"
+              className="px-6 py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-sm transition-all cursor-pointer"
             >
               {editingTask ? t.save : t.addTask}
             </button>

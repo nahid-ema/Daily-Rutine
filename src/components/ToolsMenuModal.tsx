@@ -16,7 +16,6 @@ import {
   Printer,
   Copy,
   Smartphone,
-  Check,
 } from 'lucide-react';
 import { TRANSLATIONS } from '../utils/translations';
 import { usePWAInstall } from '../hooks/usePWAInstall';
@@ -74,19 +73,19 @@ export const ToolsMenuModal: React.FC<Props> = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-xs transition-opacity animate-in fade-in-0 duration-200"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-black/60 backdrop-blur-xs transition-opacity animate-in fade-in-0 duration-150"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="w-full sm:max-w-md bg-white dark:bg-[#13161c] border border-slate-200/90 dark:border-slate-800 rounded-t-3xl sm:rounded-3xl shadow-2xl overflow-hidden max-h-[92vh] flex flex-col animate-in zoom-in-95 duration-200">
-        {/* Mobile Drag Bar */}
-        <div className="w-12 h-1 bg-slate-300 dark:bg-slate-700 rounded-full mx-auto my-3 sm:hidden" />
+      <div className="w-full sm:max-w-md bg-white dark:bg-[#13161c] border border-slate-200/90 dark:border-slate-800 shadow-2xl overflow-hidden max-h-[92vh] flex flex-col animate-in zoom-in-95 duration-150">
+        {/* Mobile Drag Bar with Square Edges */}
+        <div className="w-12 h-1 bg-slate-300 dark:bg-slate-700 mx-auto my-3 sm:hidden" />
 
         {/* Modal Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-slate-800">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-2xl bg-blue-600 text-white flex items-center justify-center shadow-sm shadow-blue-500/25">
+            <div className="w-9 h-9 bg-blue-600 text-white flex items-center justify-center shadow-xs">
               <Sliders size={18} />
             </div>
             <div>
@@ -101,17 +100,17 @@ export const ToolsMenuModal: React.FC<Props> = ({
           <button
             type="button"
             onClick={onClose}
-            className="w-9 h-9 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+            className="w-9 h-9 flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
           >
             <X size={18} />
           </button>
         </div>
 
-        {/* Content Body */}
+        {/* Content Body with Square Edges */}
         <div className="p-5 sm:p-6 space-y-4.5 overflow-y-auto flex-1 text-xs">
           {/* Section 1: PWA Install Card if installable */}
           {!isInstalled && (
-            <div className="p-3.5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-sm flex items-center justify-between gap-3">
+            <div className="p-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-xs flex items-center justify-between gap-3 border border-blue-500">
               <div className="flex items-center gap-2.5 min-w-0">
                 <Smartphone size={22} className="shrink-0 text-blue-200" />
                 <div className="min-w-0">
@@ -128,7 +127,7 @@ export const ToolsMenuModal: React.FC<Props> = ({
                 <button
                   type="button"
                   onClick={() => setShowIOSGuide(true)}
-                  className="px-3.5 py-1.5 rounded-full bg-white text-blue-700 font-bold text-xs shrink-0 shadow-xs hover:bg-blue-50 active:scale-95 transition-all"
+                  className="px-3.5 py-1.5 bg-white text-blue-700 font-bold text-xs shrink-0 shadow-xs hover:bg-blue-50 active:scale-95 transition-all cursor-pointer"
                 >
                   {isBengali ? 'গাইড' : 'Guide'}
                 </button>
@@ -139,7 +138,7 @@ export const ToolsMenuModal: React.FC<Props> = ({
                     await install();
                     onClose();
                   }}
-                  className="px-3.5 py-1.5 rounded-full bg-white text-blue-700 font-bold text-xs shrink-0 shadow-xs hover:bg-blue-50 active:scale-95 transition-all"
+                  className="px-3.5 py-1.5 bg-white text-blue-700 font-bold text-xs shrink-0 shadow-xs hover:bg-blue-50 active:scale-95 transition-all cursor-pointer"
                 >
                   {isBengali ? 'ইনস্টল' : 'Install'}
                 </button>
@@ -153,7 +152,7 @@ export const ToolsMenuModal: React.FC<Props> = ({
               {isBengali ? 'পছন্দসমূহ ও প্রদর্শন' : 'Display & Preferences'}
             </span>
 
-            <div className="rounded-2xl border border-slate-200/90 dark:border-slate-800 divide-y divide-slate-100 dark:divide-slate-800/80 bg-slate-50/50 dark:bg-slate-900/30 overflow-hidden">
+            <div className="border border-slate-200/90 dark:border-slate-800 divide-y divide-slate-100 dark:divide-slate-800/80 bg-slate-50/50 dark:bg-slate-900/30 overflow-hidden">
               {/* Language Switch */}
               <div className="flex items-center justify-between p-3">
                 <div className="flex items-center gap-2.5">
@@ -170,7 +169,7 @@ export const ToolsMenuModal: React.FC<Props> = ({
                 <button
                   type="button"
                   onClick={onToggleLang}
-                  className="px-3 py-1.5 rounded-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold text-xs text-blue-600 dark:text-blue-400 hover:border-blue-500 transition-colors shadow-2xs"
+                  className="px-3 py-1.5 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold text-xs text-blue-600 dark:text-blue-400 hover:border-blue-500 transition-colors shadow-2xs cursor-pointer"
                 >
                   {isBengali ? 'English' : 'বাংলা'}
                 </button>
@@ -196,7 +195,7 @@ export const ToolsMenuModal: React.FC<Props> = ({
                 <button
                   type="button"
                   onClick={onToggleDark}
-                  className="px-3 py-1.5 rounded-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold text-xs text-slate-700 dark:text-slate-200 hover:border-blue-500 transition-colors shadow-2xs"
+                  className="px-3 py-1.5 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold text-xs text-slate-700 dark:text-slate-200 hover:border-blue-500 transition-colors shadow-2xs cursor-pointer"
                 >
                   {isDark ? t.lightMode : t.darkMode}
                 </button>
@@ -218,7 +217,7 @@ export const ToolsMenuModal: React.FC<Props> = ({
                 <button
                   type="button"
                   onClick={onToggleTimeFormat}
-                  className="px-3 py-1.5 rounded-full border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold text-xs text-slate-700 dark:text-slate-200 hover:border-blue-500 transition-colors shadow-2xs"
+                  className="px-3 py-1.5 border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 font-bold text-xs text-slate-700 dark:text-slate-200 hover:border-blue-500 transition-colors shadow-2xs cursor-pointer"
                 >
                   {format12h ? '12h' : '24h'}
                 </button>
@@ -244,7 +243,7 @@ export const ToolsMenuModal: React.FC<Props> = ({
                 <button
                   type="button"
                   onClick={onToggleSound}
-                  className={`px-3 py-1.5 rounded-full border text-xs font-bold transition-colors shadow-2xs ${
+                  className={`px-3 py-1.5 border text-xs font-bold transition-colors shadow-2xs cursor-pointer ${
                     soundEnabled
                       ? 'border-emerald-500/50 bg-emerald-50 text-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-300'
                       : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-500'
@@ -274,7 +273,7 @@ export const ToolsMenuModal: React.FC<Props> = ({
                 <button
                   type="button"
                   onClick={onToggleNotification}
-                  className={`px-3 py-1.5 rounded-full border text-xs font-bold transition-colors shadow-2xs ${
+                  className={`px-3 py-1.5 border text-xs font-bold transition-colors shadow-2xs cursor-pointer ${
                     notificationsEnabled
                       ? 'border-blue-500/50 bg-blue-50 text-blue-700 dark:bg-blue-950/40 dark:text-blue-300'
                       : 'border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-500'
@@ -299,9 +298,9 @@ export const ToolsMenuModal: React.FC<Props> = ({
                   onOpenPresets();
                   onClose();
                 }}
-                className="flex items-center gap-2 p-3 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30 hover:border-blue-500 text-left transition-colors shadow-2xs"
+                className="flex items-center gap-2 p-3 border border-slate-200/90 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30 hover:border-blue-500 text-left transition-colors shadow-2xs cursor-pointer"
               >
-                <div className="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-500 flex items-center justify-center shrink-0">
+                <div className="w-8 h-8 bg-amber-500/15 text-amber-500 flex items-center justify-center shrink-0">
                   <Sparkles size={16} />
                 </div>
                 <div className="min-w-0">
@@ -321,9 +320,9 @@ export const ToolsMenuModal: React.FC<Props> = ({
                     onOpenCopyModal();
                     onClose();
                   }}
-                  className="flex items-center gap-2 p-3 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30 hover:border-blue-500 text-left transition-colors shadow-2xs"
+                  className="flex items-center gap-2 p-3 border border-slate-200/90 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30 hover:border-blue-500 text-left transition-colors shadow-2xs cursor-pointer"
                 >
-                  <div className="w-8 h-8 rounded-xl bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+                  <div className="w-8 h-8 bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
                     <Copy size={16} />
                   </div>
                   <div className="min-w-0">
@@ -352,7 +351,7 @@ export const ToolsMenuModal: React.FC<Props> = ({
                   onExport();
                   onClose();
                 }}
-                className="flex flex-col items-center justify-center p-3 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30 hover:border-blue-500 transition-colors shadow-2xs text-center"
+                className="flex flex-col items-center justify-center p-3 border border-slate-200/90 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30 hover:border-blue-500 transition-colors shadow-2xs text-center cursor-pointer"
               >
                 <Download size={16} className="text-blue-600 mb-1" />
                 <span className="font-bold text-slate-800 dark:text-slate-200 text-[11px]">
@@ -366,7 +365,7 @@ export const ToolsMenuModal: React.FC<Props> = ({
                   onTriggerImport();
                   onClose();
                 }}
-                className="flex flex-col items-center justify-center p-3 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30 hover:border-blue-500 transition-colors shadow-2xs text-center"
+                className="flex flex-col items-center justify-center p-3 border border-slate-200/90 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30 hover:border-blue-500 transition-colors shadow-2xs text-center cursor-pointer"
               >
                 <Upload size={16} className="text-indigo-600 mb-1" />
                 <span className="font-bold text-slate-800 dark:text-slate-200 text-[11px]">
@@ -380,7 +379,7 @@ export const ToolsMenuModal: React.FC<Props> = ({
                   onPrint();
                   onClose();
                 }}
-                className="flex flex-col items-center justify-center p-3 rounded-2xl border border-slate-200/90 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30 hover:border-blue-500 transition-colors shadow-2xs text-center"
+                className="flex flex-col items-center justify-center p-3 border border-slate-200/90 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30 hover:border-blue-500 transition-colors shadow-2xs text-center cursor-pointer"
               >
                 <Printer size={16} className="text-teal-600 mb-1" />
                 <span className="font-bold text-slate-800 dark:text-slate-200 text-[11px]">
@@ -391,26 +390,26 @@ export const ToolsMenuModal: React.FC<Props> = ({
           </div>
         </div>
 
-        {/* Footer */}
+        {/* Footer with Square Edges */}
         <div className="p-4 px-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs text-slate-500">
           <span className="tabular-nums font-semibold">{currentDateString}</span>
           <button
             type="button"
             onClick={onClose}
-            className="px-5 py-2 rounded-full bg-slate-100 dark:bg-slate-800 font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-200"
+            className="px-5 py-2 bg-slate-100 dark:bg-slate-800 font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-200 cursor-pointer"
           >
             {t.cancel}
           </button>
         </div>
       </div>
 
-      {/* iOS Safari Guide Modal if triggered */}
+      {/* iOS Safari Guide Modal with Square Edges */}
       {showIOSGuide && (
         <div
           className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/70 backdrop-blur-xs"
           onClick={() => setShowIOSGuide(false)}
         >
-          <div className="w-full max-w-sm rounded-3xl bg-white dark:bg-[#13161c] p-6 shadow-2xl border border-slate-200/90 dark:border-slate-800">
+          <div className="w-full max-w-sm bg-white dark:bg-[#13161c] p-6 shadow-2xl border border-slate-200/90 dark:border-slate-800">
             <h3 className="text-base font-bold text-slate-900 dark:text-white mb-3">
               {isBengali ? 'iPhone / iPad এ ইনস্টল' : 'Install on iOS Safari'}
             </h3>
@@ -422,7 +421,7 @@ export const ToolsMenuModal: React.FC<Props> = ({
             <button
               type="button"
               onClick={() => setShowIOSGuide(false)}
-              className="mt-4 w-full rounded-full bg-blue-600 py-2.5 text-xs font-bold text-white"
+              className="mt-4 w-full bg-blue-600 py-2.5 text-xs font-bold text-white cursor-pointer"
             >
               {isBengali ? 'বুঝেছি' : 'Got it'}
             </button>

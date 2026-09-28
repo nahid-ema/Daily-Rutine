@@ -53,11 +53,11 @@ export const CopyDayModal: React.FC<Props> = ({
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="w-full max-w-md bg-white dark:bg-[#13161c] border border-slate-200/90 dark:border-slate-800 rounded-3xl shadow-2xl overflow-hidden animate-in fade-in-0 zoom-in-95">
+      <div className="w-full max-w-md bg-white dark:bg-[#13161c] border border-slate-200/90 dark:border-slate-800 shadow-2xl overflow-hidden animate-in fade-in-0 zoom-in-95 duration-150">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-slate-800">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+            <div className="w-8 h-8 bg-blue-500/15 text-blue-600 dark:text-blue-400 flex items-center justify-center">
               <Copy size={18} />
             </div>
             <h2 className="text-base font-bold text-slate-900 dark:text-slate-100">
@@ -67,13 +67,13 @@ export const CopyDayModal: React.FC<Props> = ({
           <button
             type="button"
             onClick={onClose}
-            className="w-9 h-9 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+            className="w-9 h-9 flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors cursor-pointer"
           >
             <X size={18} />
           </button>
         </div>
 
-        {/* Content */}
+        {/* Content with Square Edges */}
         <div className="p-6 space-y-4">
           <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
             {isBengali
@@ -86,7 +86,7 @@ export const CopyDayModal: React.FC<Props> = ({
             <button
               type="button"
               onClick={selectAll}
-              className="text-blue-600 dark:text-blue-400 hover:underline font-bold"
+              className="text-blue-600 dark:text-blue-400 hover:underline font-bold cursor-pointer"
             >
               {isBengali ? 'সব দিন নির্বাচন' : 'Select all'}
             </button>
@@ -94,7 +94,7 @@ export const CopyDayModal: React.FC<Props> = ({
             <button
               type="button"
               onClick={selectNone}
-              className="text-slate-500 hover:underline font-medium"
+              className="text-slate-500 hover:underline font-medium cursor-pointer"
             >
               {isBengali ? 'মুছে ফেলুন' : 'Deselect all'}
             </button>
@@ -111,15 +111,15 @@ export const CopyDayModal: React.FC<Props> = ({
                   key={dayIndex}
                   type="button"
                   onClick={() => toggleDay(dayIndex)}
-                  className={`flex items-center justify-between p-3 rounded-2xl border text-xs font-semibold transition-all ${
+                  className={`flex items-center justify-between p-3 border text-xs font-semibold transition-all cursor-pointer ${
                     isChecked
-                      ? 'border-blue-600 bg-blue-50/70 dark:bg-blue-950/40 text-blue-800 dark:text-blue-200 font-bold ring-2 ring-blue-500/20'
+                      ? 'border-blue-600 bg-blue-50/70 dark:bg-blue-950/40 text-blue-800 dark:text-blue-200 font-bold'
                       : 'border-slate-200/80 dark:border-slate-800 bg-slate-50/40 dark:bg-slate-800/20 text-slate-700 dark:text-slate-300'
                   }`}
                 >
                   <span>{t.daysOfWeek[dayIndex]}</span>
                   <div
-                    className={`w-5 h-5 rounded-full border flex items-center justify-center text-[10px] ${
+                    className={`w-5 h-5 border flex items-center justify-center text-[10px] ${
                       isChecked
                         ? 'bg-blue-600 border-blue-600 text-white'
                         : 'border-slate-300 dark:border-slate-600'
@@ -134,22 +134,27 @@ export const CopyDayModal: React.FC<Props> = ({
         </div>
 
         {/* Footer */}
-        <div className="p-4 px-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-end gap-2.5">
-          <button
-            type="button"
-            onClick={onClose}
-            className="px-4 py-2 text-xs font-semibold text-slate-600 dark:text-slate-400"
-          >
-            {t.cancel}
-          </button>
-          <button
-            type="button"
-            disabled={selectedTargetDays.length === 0}
-            onClick={handleCopy}
-            className="px-6 py-2.5 rounded-full text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none transition-all shadow-sm shadow-blue-500/25"
-          >
-            {isBengali ? `${selectedTargetDays.length} দিনে কপি করো` : `Copy to ${selectedTargetDays.length} days`}
-          </button>
+        <div className="p-4 px-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
+          <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
+            {selectedTargetDays.length} {isBengali ? 'দিন নির্বাচিত' : 'days selected'}
+          </span>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={onClose}
+              className="px-4 py-2 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 cursor-pointer"
+            >
+              {t.cancel}
+            </button>
+            <button
+              type="button"
+              disabled={selectedTargetDays.length === 0}
+              onClick={handleCopy}
+              className="px-6 py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 disabled:opacity-40 disabled:cursor-not-allowed transition-all shadow-xs cursor-pointer"
+            >
+              {isBengali ? 'কপি নিশ্চিত করুন' : 'Confirm Copy'}
+            </button>
+          </div>
         </div>
       </div>
     </div>

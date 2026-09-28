@@ -34,8 +34,8 @@ export class ErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       return (
         <div className="min-h-screen bg-[#f8fafd] dark:bg-[#0c0e12] flex items-center justify-center p-4">
-          <div className="w-full max-w-md rounded-3xl bg-white dark:bg-[#13161c] border border-slate-200 dark:border-slate-800 p-6 sm:p-8 text-center shadow-xl space-y-4">
-            <div className="w-14 h-14 rounded-2xl bg-amber-50 dark:bg-amber-950/40 text-amber-500 flex items-center justify-center mx-auto shadow-sm">
+          <div className="w-full max-w-md bg-white dark:bg-[#13161c] border border-slate-200 dark:border-slate-800 p-6 sm:p-8 text-center shadow-xl space-y-4">
+            <div className="w-14 h-14 bg-amber-50 dark:bg-amber-950/40 text-amber-500 flex items-center justify-center mx-auto shadow-xs">
               <AlertTriangle size={28} />
             </div>
 
@@ -52,7 +52,7 @@ export class ErrorBoundary extends Component<Props, State> {
               <button
                 type="button"
                 onClick={this.handleReset}
-                className="w-full py-2.5 px-4 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md shadow-blue-500/25 transition-all"
+                className="w-full py-2.5 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-xs transition-all cursor-pointer"
               >
                 <RotateCcw size={15} />
                 <span>রুটিন রিসেট ও রিলোড করুন</span>
@@ -61,7 +61,7 @@ export class ErrorBoundary extends Component<Props, State> {
               <button
                 type="button"
                 onClick={() => window.location.reload()}
-                className="w-full py-2 px-4 rounded-full border border-slate-200 dark:border-slate-700 font-semibold text-slate-600 dark:text-slate-300 text-xs hover:bg-slate-50"
+                className="w-full py-2 px-4 border border-slate-200 dark:border-slate-700 font-semibold text-slate-600 dark:text-slate-300 text-xs hover:bg-slate-50 cursor-pointer"
               >
                 শুধুমাত্র রিলোড করুন
               </button>

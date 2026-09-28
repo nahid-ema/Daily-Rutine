@@ -75,11 +75,11 @@ export const PresetsModal: React.FC<Props> = ({
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="w-full max-w-lg bg-white dark:bg-[#13161c] border border-slate-200/90 dark:border-slate-800 rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col animate-in fade-in-0 zoom-in-95">
+      <div className="w-full max-w-lg bg-white dark:bg-[#13161c] border border-slate-200/90 dark:border-slate-800 shadow-2xl overflow-hidden max-h-[90vh] flex flex-col animate-in fade-in-0 zoom-in-95 duration-150">
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 dark:border-slate-800">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-full bg-amber-500/15 text-amber-500 flex items-center justify-center">
+            <div className="w-8 h-8 bg-amber-500/15 text-amber-500 flex items-center justify-center">
               <Sparkles size={18} />
             </div>
             <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100">
@@ -89,14 +89,14 @@ export const PresetsModal: React.FC<Props> = ({
           <button
             type="button"
             onClick={onClose}
-            className="w-9 h-9 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors"
+            className="w-9 h-9 flex items-center justify-center text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors cursor-pointer"
           >
             <X size={18} />
           </button>
         </div>
 
-        {/* Presets List */}
-        <div className="p-6 space-y-4 overflow-y-auto flex-1">
+        {/* Presets List with Square Edges */}
+        <div className="p-6 space-y-4 overflow-y-auto flex-1 text-xs">
           <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">
             {isBengali
               ? 'আপনার প্রয়োজন অনুযায়ী যেকোনো তৈরি রুটিন বেছে নিন:'
@@ -112,16 +112,16 @@ export const PresetsModal: React.FC<Props> = ({
                 <div
                   key={preset.key}
                   onClick={() => setSelectedPresetKey(preset.key)}
-                  className={`flex items-start gap-3.5 p-3.5 rounded-2xl border cursor-pointer transition-all ${
+                  className={`flex items-start gap-3.5 p-3.5 border cursor-pointer transition-all ${
                     isSelected
-                      ? 'border-blue-600 bg-blue-50/70 dark:bg-blue-950/40 ring-2 ring-blue-500/20'
+                      ? 'border-blue-600 bg-blue-50/70 dark:bg-blue-950/40'
                       : 'border-slate-200/80 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/30 hover:border-slate-300'
                   }`}
                 >
                   <div
-                    className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 ${
+                    className={`w-10 h-10 flex items-center justify-center shrink-0 ${
                       isSelected
-                        ? 'bg-blue-600 text-white shadow-sm'
+                        ? 'bg-blue-600 text-white shadow-xs'
                         : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'
                     }`}
                   >
@@ -153,7 +153,7 @@ export const PresetsModal: React.FC<Props> = ({
               <button
                 type="button"
                 onClick={() => setTargetScope('current')}
-                className={`py-2 px-3 rounded-full border text-xs font-bold transition-all ${
+                className={`py-2 px-3 border text-xs font-bold transition-all cursor-pointer ${
                   targetScope === 'current'
                     ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300'
                     : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400'
@@ -164,7 +164,7 @@ export const PresetsModal: React.FC<Props> = ({
               <button
                 type="button"
                 onClick={() => setTargetScope('all')}
-                className={`py-2 px-3 rounded-full border text-xs font-bold transition-all ${
+                className={`py-2 px-3 border text-xs font-bold transition-all cursor-pointer ${
                   targetScope === 'all'
                     ? 'border-blue-600 bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300'
                     : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400'
@@ -181,14 +181,14 @@ export const PresetsModal: React.FC<Props> = ({
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900"
+            className="px-4 py-2 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:text-slate-900 cursor-pointer"
           >
             {t.cancel}
           </button>
           <button
             type="button"
             onClick={handleApply}
-            className="px-6 py-2.5 rounded-full text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-sm shadow-blue-500/25"
+            className="px-6 py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-xs cursor-pointer"
           >
             {t.applyPreset}
           </button>

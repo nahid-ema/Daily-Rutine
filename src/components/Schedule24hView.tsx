@@ -35,7 +35,7 @@ export const Schedule24hView: React.FC<Props> = ({
   const TOTAL_HEIGHT = 24 * HOUR_HEIGHT;
 
   return (
-    <div className="rounded-3xl border bg-white dark:bg-[#13161c] border-slate-200/80 dark:border-slate-800/80 p-4 sm:p-5 overflow-hidden shadow-xs">
+    <div className="border bg-white dark:bg-[#13161c] border-slate-200/90 dark:border-slate-800 p-4 sm:p-5 overflow-hidden shadow-2xs">
       <div className="flex items-center justify-between mb-3 text-xs text-slate-500 dark:text-slate-400">
         <span className="font-semibold text-slate-700 dark:text-slate-300">{t.viewSchedule24h}</span>
         <span className="tabular-nums font-medium">
@@ -62,19 +62,19 @@ export const Schedule24hView: React.FC<Props> = ({
             );
           })}
 
-          {/* Current time line if today */}
+          {/* Current Live Time Indicator Line (if today) */}
           {isToday && (
             <div
-              className="absolute left-12 sm:left-14 right-0 z-20 flex items-center pointer-events-none"
+              className="absolute left-14 sm:left-16 right-0 z-20 pointer-events-none flex items-center"
               style={{ top: `${(nowMin / 60) * HOUR_HEIGHT}px` }}
             >
-              <div className="w-3 h-3 rounded-full bg-rose-500 -ml-1.5 shadow-sm shadow-rose-500/50 ring-2 ring-white dark:ring-[#13161c]" />
-              <div className="flex-1 h-0.5 bg-rose-500 shadow-xs" />
+              <div className="w-2.5 h-2.5 bg-rose-500 -ml-1.5 shadow-sm" />
+              <div className="flex-1 h-0.5 bg-rose-500 shadow-sm" />
             </div>
           )}
 
-          {/* Task Time Blocks */}
-          <div className="absolute left-14 sm:left-16 right-0 top-0 bottom-0">
+          {/* Task Time Blocks with Square Edges */}
+          <div className="absolute left-16 sm:left-20 right-0 top-0 bottom-0 pointer-events-auto">
             {tasks.map((task) => {
               const [startMin, rawEndMin] = getTaskSpan(task);
               const durationMin = rawEndMin - startMin;
@@ -89,7 +89,7 @@ export const Schedule24hView: React.FC<Props> = ({
                 <div
                   key={task.id}
                   onClick={() => onEditTask(task)}
-                  className={`absolute left-1 right-2 rounded-xl p-2.5 cursor-pointer transition-all duration-150 overflow-hidden border shadow-2xs hover:shadow-xs group ${
+                  className={`absolute left-1 right-2 p-2.5 cursor-pointer transition-all duration-150 overflow-hidden border shadow-2xs hover:shadow-xs group ${
                     isDone ? 'opacity-65' : ''
                   }`}
                   style={{
@@ -103,7 +103,7 @@ export const Schedule24hView: React.FC<Props> = ({
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900 dark:text-slate-100">
                         <span
-                          className="w-2 h-2 rounded-full shrink-0"
+                          className="w-2 h-2 shrink-0"
                           style={{ backgroundColor: catMeta.color }}
                         />
                         <span className={`truncate ${isDone ? 'line-through opacity-60' : ''}`}>
@@ -123,7 +123,7 @@ export const Schedule24hView: React.FC<Props> = ({
                         e.stopPropagation();
                         onToggleDone(task.id);
                       }}
-                      className={`w-6 h-6 rounded-full border flex items-center justify-center text-xs shrink-0 transition-colors ${
+                      className={`w-6 h-6 border flex items-center justify-center text-xs shrink-0 transition-colors cursor-pointer ${
                         isDone
                           ? 'bg-emerald-600 border-emerald-600 text-white'
                           : 'border-slate-300 bg-white/90 text-transparent hover:text-slate-500'

@@ -22,14 +22,13 @@ export const MobileBottomNav: React.FC<Props> = ({
 
   const handleTabClick = (mode: ViewMode) => {
     onChangeViewMode(mode);
-    // Smooth scroll down to main content if on mobile
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <nav
       aria-label="Mobile Navigation"
-      className="md:hidden fixed bottom-0 left-0 right-0 z-50 pointer-events-auto bg-white/95 dark:bg-[#13161c]/95 backdrop-blur-md border-t border-slate-200/90 dark:border-slate-800 px-3 py-1.5 shadow-lg shadow-black/10 no-print"
+      className="md:hidden fixed bottom-0 left-0 right-0 z-50 pointer-events-auto bg-white/95 dark:bg-[#13161c]/95 backdrop-blur-md border-t border-slate-200/90 dark:border-slate-800 px-3 py-1 shadow-lg shadow-black/10 no-print"
     >
       <div className="flex items-center justify-between max-w-md mx-auto relative">
         {/* Tab 1: Timeline List */}
@@ -38,12 +37,12 @@ export const MobileBottomNav: React.FC<Props> = ({
           onClick={() => handleTabClick('timeline')}
           className={`flex flex-col items-center justify-center flex-1 min-h-[50px] py-1 text-center transition-all duration-150 cursor-pointer ${
             viewMode === 'timeline'
-              ? 'text-blue-600 dark:text-blue-400 font-bold scale-105'
+              ? 'text-blue-600 dark:text-blue-400 font-bold'
               : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
           }`}
         >
           <div
-            className={`px-3 py-1 rounded-full transition-all ${
+            className={`px-3 py-1 transition-all ${
               viewMode === 'timeline'
                 ? 'bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400'
                 : ''
@@ -62,12 +61,12 @@ export const MobileBottomNav: React.FC<Props> = ({
           onClick={() => handleTabClick('schedule24h')}
           className={`flex flex-col items-center justify-center flex-1 min-h-[50px] py-1 text-center transition-all duration-150 cursor-pointer ${
             viewMode === 'schedule24h'
-              ? 'text-blue-600 dark:text-blue-400 font-bold scale-105'
+              ? 'text-blue-600 dark:text-blue-400 font-bold'
               : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
           }`}
         >
           <div
-            className={`px-3 py-1 rounded-full transition-all ${
+            className={`px-3 py-1 transition-all ${
               viewMode === 'schedule24h'
                 ? 'bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400'
                 : ''
@@ -80,16 +79,16 @@ export const MobileBottomNav: React.FC<Props> = ({
           </span>
         </button>
 
-        {/* Center Floating Add Button */}
-        <div className="flex-1 flex justify-center -mt-7 shrink-0">
+        {/* Center Floating Square Add Button */}
+        <div className="flex-1 flex justify-center -mt-6 shrink-0">
           <button
             type="button"
             onClick={onOpenAddTask}
             aria-label={t.addTask}
             title={t.addTask}
-            className="w-14 h-14 rounded-2xl bg-blue-600 hover:bg-blue-700 active:scale-90 text-white flex items-center justify-center shadow-lg shadow-blue-600/35 border-4 border-white dark:border-[#13161c] transition-all cursor-pointer"
+            className="w-13 h-13 bg-blue-600 hover:bg-blue-700 active:scale-95 text-white flex items-center justify-center shadow-lg shadow-blue-600/35 border-2 border-white dark:border-[#13161c] transition-all cursor-pointer"
           >
-            <Plus size={28} strokeWidth={2.6} />
+            <Plus size={26} strokeWidth={2.6} />
           </button>
         </div>
 
@@ -99,12 +98,12 @@ export const MobileBottomNav: React.FC<Props> = ({
           onClick={() => handleTabClick('weekmatrix')}
           className={`flex flex-col items-center justify-center flex-1 min-h-[50px] py-1 text-center transition-all duration-150 cursor-pointer ${
             viewMode === 'weekmatrix'
-              ? 'text-blue-600 dark:text-blue-400 font-bold scale-105'
+              ? 'text-blue-600 dark:text-blue-400 font-bold'
               : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
           }`}
         >
           <div
-            className={`px-3 py-1 rounded-full transition-all ${
+            className={`px-3 py-1 transition-all ${
               viewMode === 'weekmatrix'
                 ? 'bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400'
                 : ''
@@ -123,7 +122,7 @@ export const MobileBottomNav: React.FC<Props> = ({
           onClick={onOpenToolsMenu}
           className="flex flex-col items-center justify-center flex-1 min-h-[50px] py-1 text-center transition-all duration-150 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer"
         >
-          <div className="px-3 py-1 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800">
+          <div className="px-3 py-1 hover:bg-slate-100 dark:hover:bg-slate-800">
             <Sliders size={20} />
           </div>
           <span className="text-[11px] mt-0.5 tracking-tight font-semibold">

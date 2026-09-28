@@ -1,23 +1,29 @@
-import {StrictMode} from 'react';
-import {createRoot} from 'react-dom/client';
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
 import { ErrorBoundary } from './components/ErrorBoundary';
-import { registerSW } from 'virtual:pwa-register';
 
-// Register PWA service worker safely with auto-update
-try {
-  if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
-    registerSW({ immediate: true });
+// Clean up any stale service workers that may intercept requests in development or iframes
+if (typeof window !== 'undefined' && 'serviceWorker' in navigator) {
+  try {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for (const registration of registrations) {
+        registration.unregister();
+      }
+    });
+  } catch (err) {
+    console.warn('SW cleanup ignored:', err);
   }
-} catch (swErr) {
-  console.warn('PWA registerSW error (ignorable):', swErr);
 }
 
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <ErrorBoundary>
-      <App />
-    </ErrorBoundary>
-  </StrictMode>,
-);
+const rootElement = document.getElementById('root');
+if (rootElement) {
+  createRoot(rootElement).render(
+    <StrictMode>
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
+    </StrictMode>,
+  );
+}
