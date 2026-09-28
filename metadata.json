@@ -1,0 +1,6 @@
+{
+  "name": "আমার রুটিন - Daily Routine & Schedule Planner",
+  "description": "An elegant, responsive daily routine and schedule planner with bilingual Bengali & English support, real-time tracking, progress analytics, and smart desktop & mobile layouts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

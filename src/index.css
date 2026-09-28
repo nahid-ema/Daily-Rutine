@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-google-sans: 'Google Sans', 'Google Sans Text', 'Product Sans', 'Outfit', 'Noto Sans Bengali', 'Hind Siliguri', system-ui, -apple-system, sans-serif;
+    --font-google-text: 'Google Sans Text', 'Google Sans', 'Noto Sans Bengali', system-ui, sans-serif;
+  }
+
+  body {
+    font-family: var(--font-google-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, h4, h5, h6, button, input, select, textarea {
+    font-family: var(--font-google-sans);
+  }
+}
+
+/* Custom scrollbars */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.35);
+  border-radius: 999px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.6);
+}
+
+/* Google-style ripple and button transitions */
+button, a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Print styling */
+@media print {
+  .no-print,
+  header,
+  nav,
+  button,
+  .fab,
+  .toast {
+    display: none !important;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .print-page {
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+}
