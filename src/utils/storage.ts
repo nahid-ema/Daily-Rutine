@@ -1,40 +1,97 @@
-import { RoutineState } from '../types';
-import { PRESET_DEFAULT_TASKS, buildDayTasksFromTemplate } from './presets';
+import { RoutineState, Task, CategoryKey, PriorityKey, CATEGORIES } from '../types';
+import { PRESET_DEFAULT_TASKS, buildDayTasksFromTemplate, uid } from './presets';
 
 const STORAGE_KEY = 'amr_routine_v2';
 const OLD_STORAGE_KEY = 'rt';
 
+export function normalizeTask(raw: any): Task {
+  if (!raw || typeof raw !== 'object') {
+    return {
+      id: uid(),
+      title: 'নতুন কাজ',
+      start: '08:00',
+      end: '09:00',
+      cat: 'work',
+      prio: 'medium',
+      notes: '',
+    };
+  }
+
+  const title = String(raw.title || raw.t || 'নতুন কাজ');
+  const start = String(raw.start || raw.s || '08:00');
+  const end = String(raw.end || raw.e || '09:00');
+
+  // Handle old short or unrecognized category codes
+  let cat: CategoryKey = (raw.cat || raw.c || 'work') as CategoryKey;
+  if (!CATEGORIES[cat]) {
+    cat = 'other';
+  }
+
+  // Handle old single letter priority codes ('h', 'm', 'l')
+  let prio: PriorityKey = (raw.prio || raw.p || 'medium') as PriorityKey;
+  if ((prio as string) === 'h') prio = 'high';
+  else if ((prio as string) === 'm') prio = 'medium';
+  else if ((prio as string) === 'l') prio = 'low';
+  else if (!['low', 'medium', 'high'].includes(prio)) {
+    prio = 'medium';
+  }
+
+  const notes = String(raw.notes || raw.n || '');
+
+  return {
+    id: String(raw.id || uid()),
+    title,
+    start,
+    end,
+    cat,
+    prio,
+    notes,
+  };
+}
+
 export function getInitialState(): RoutineState {
-  // Try loading saved data
   try {
+    // 1. Try reading the current v2 storage key
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
       const parsed = JSON.parse(raw);
-      if (parsed && parsed.days) {
+      if (parsed && typeof parsed === 'object' && parsed.days) {
+        const days: Record<number, Task[]> = {};
+        for (let d = 0; d < 7; d++) {
+          const arr = parsed.days[d];
+          days[d] = Array.isArray(arr) ? arr.map(normalizeTask) : [];
+        }
+
         return {
-          days: parsed.days,
-          lang: parsed.lang || 'bn',
+          days,
+          lang: parsed.lang === 'en' ? 'en' : 'bn',
           dark: Boolean(parsed.dark),
-          done: parsed.done || {},
-          notified: parsed.notified || {},
+          done: typeof parsed.done === 'object' && parsed.done ? parsed.done : {},
+          notified: typeof parsed.notified === 'object' && parsed.notified ? parsed.notified : {},
           notificationsEnabled: Boolean(parsed.notificationsEnabled),
-          soundEnabled: parsed.soundEnabled !== false, // default true
-          timeFormat: parsed.timeFormat || '12h',
+          soundEnabled: parsed.soundEnabled !== false,
+          timeFormat: parsed.timeFormat === '24h' ? '24h' : '12h',
         };
       }
     }
 
-    // Attempt migration from user's original HTML localStorage key ('rt')
+    // 2. Migrate from user's original HTML code key ('rt')
     const oldRaw = localStorage.getItem(OLD_STORAGE_KEY);
     if (oldRaw) {
       const oldParsed = JSON.parse(oldRaw);
-      if (oldParsed && oldParsed.days) {
+      if (oldParsed && typeof oldParsed === 'object' && oldParsed.days) {
+        const days: Record<number, Task[]> = {};
+        for (let d = 0; d < 7; d++) {
+          const arr = oldParsed.days[d];
+          days[d] = Array.isArray(arr) && arr.length > 0 ? arr.map(normalizeTask) : buildDayTasksFromTemplate(PRESET_DEFAULT_TASKS);
+        }
+
         return {
-          days: oldParsed.days,
-          lang: oldParsed.lang || 'bn',
+          days,
+          lang: 'bn',
           dark: Boolean(oldParsed.dark),
-          done: oldParsed.done || {},
-          notified: oldParsed.notified || {},
+          done: typeof oldParsed.done === 'object' && oldParsed.done ? oldParsed.done : {},
+          notified: {},
           notificationsEnabled: false,
           soundEnabled: true,
           timeFormat: '12h',
@@ -46,13 +103,13 @@ export function getInitialState(): RoutineState {
   }
 
   // Fallback initial default routine populated across all 7 days
-  const days: Record<number, ReturnType<typeof buildDayTasksFromTemplate>> = {};
+  const defaultDays: Record<number, Task[]> = {};
   for (let d = 0; d < 7; d++) {
-    days[d] = buildDayTasksFromTemplate(PRESET_DEFAULT_TASKS);
+    defaultDays[d] = buildDayTasksFromTemplate(PRESET_DEFAULT_TASKS);
   }
 
   return {
-    days,
+    days: defaultDays,
     lang: 'bn',
     dark: false,
     done: {},
@@ -68,6 +125,15 @@ export function saveState(state: RoutineState): void {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   } catch (err) {
     console.error('Error saving routine to localStorage:', err);
+  }
+}
+
+export function resetLocalStorage(): void {
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(OLD_STORAGE_KEY);
+  } catch (e) {
+    console.warn(e);
   }
 }
 

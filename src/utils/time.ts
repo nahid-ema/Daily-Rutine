@@ -53,8 +53,9 @@ export function formatTime(timeStr: string, isBengali: boolean, format12h: boole
  * Calculates start and end minutes, handling overnight spans (e.g. 23:00 to 05:00)
  */
 export function getTaskSpan(task: Task): [number, number] {
-  const a = parseMinutes(task.start);
-  let b = parseMinutes(task.end);
+  if (!task) return [0, 60];
+  const a = parseMinutes(task.start || '08:00');
+  let b = parseMinutes(task.end || '09:00');
   if (b <= a) {
     b += 1440; // Overnight task
   }
@@ -62,8 +63,9 @@ export function getTaskSpan(task: Task): [number, number] {
 }
 
 export function getTaskDurationMinutes(task: Task): number {
+  if (!task) return 0;
   const [a, b] = getTaskSpan(task);
-  return b - a;
+  return Math.max(0, b - a);
 }
 
 export function formatDuration(minutes: number, isBengali: boolean): string {
@@ -90,9 +92,10 @@ export function formatDuration(minutes: number, isBengali: boolean): string {
 }
 
 export function doesTaskOverlap(task: Task, allTasks: Task[]): boolean {
+  if (!task || !Array.isArray(allTasks)) return false;
   const [startA, endA] = getTaskSpan(task);
   return allTasks.some((other) => {
-    if (other.id === task.id) return false;
+    if (!other || other.id === task.id) return false;
     const [startB, endB] = getTaskSpan(other);
     return startA < endB && startB < endA;
   });
@@ -124,9 +127,14 @@ export function findActiveAndNextTask(tasks: Task[]): {
   let progressPercent = 0;
   let remainingMinutes = 0;
 
+  if (!Array.isArray(tasks)) {
+    return { currentTask, nextTask, progressPercent, remainingMinutes };
+  }
+
   for (const task of tasks) {
+    if (!task) continue;
     const [start, end] = getTaskSpan(task);
-    const duration = end - start;
+    const duration = Math.max(1, end - start);
 
     // Check same-day or overnight window
     if ((nowMin >= start && nowMin < end) || (nowMin + 1440 >= start && nowMin + 1440 < end)) {
@@ -141,15 +149,19 @@ export function findActiveAndNextTask(tasks: Task[]): {
 
   // Find next upcoming task
   const upcoming = tasks
-    .filter((t) => parseMinutes(t.start) > nowMin)
-    .sort((a, b) => parseMinutes(a.start) - parseMinutes(b.start));
+    .filter((t) => t && parseMinutes(t.start || '00:00') > nowMin)
+    .sort((a, b) => parseMinutes(a.start || '00:00') - parseMinutes(b.start || '00:00'));
 
   if (upcoming.length > 0) {
     nextTask = upcoming[0];
   } else if (tasks.length > 0 && !currentTask) {
     // Wrap around to first task tomorrow/tonight
-    const sorted = [...tasks].sort((a, b) => parseMinutes(a.start) - parseMinutes(b.start));
-    nextTask = sorted[0];
+    const sorted = [...tasks]
+      .filter(Boolean)
+      .sort((a, b) => parseMinutes(a.start || '00:00') - parseMinutes(b.start || '00:00'));
+    if (sorted.length > 0) {
+      nextTask = sorted[0];
+    }
   }
 
   return { currentTask, nextTask, progressPercent, remainingMinutes };

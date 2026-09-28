@@ -87,7 +87,7 @@ export const WeekMatrixView: React.FC<Props> = ({
                 {tasks.length > 0 ? (
                   tasks.map((task) => {
                     const isDone = Boolean(doneRecord[`${weekStartKey}:${dayIndex}:${task.id}`]);
-                    const meta = CATEGORIES[task.cat] || CATEGORIES.other;
+                    const meta = (task && task.cat && CATEGORIES[task.cat]) || CATEGORIES.other;
 
                     return (
                       <div

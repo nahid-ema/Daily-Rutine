@@ -82,7 +82,7 @@ export const Schedule24hView: React.FC<Props> = ({
               const topPx = (startMin / 60) * HOUR_HEIGHT;
               const heightPx = Math.max(36, (durationMin / 60) * HOUR_HEIGHT - 3);
 
-              const catMeta = CATEGORIES[task.cat] || CATEGORIES.other;
+              const catMeta = (task && task.cat && CATEGORIES[task.cat]) || CATEGORIES.other;
               const isDone = doneTaskIds.has(task.id);
 
               return (

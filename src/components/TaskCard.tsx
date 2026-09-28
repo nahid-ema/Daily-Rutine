@@ -32,18 +32,19 @@ export const TaskCard: React.FC<Props> = ({
   onDelete,
 }) => {
   const t = TRANSLATIONS[isBengali ? 'bn' : 'en'];
-  const catMeta = CATEGORIES[task.cat] || CATEGORIES.other;
+  const catMeta = (task && task.cat && CATEGORIES[task.cat]) || CATEGORIES.other;
   const durationMins = getTaskDurationMinutes(task);
+  const prioKey = task && task.prio ? task.prio : 'medium';
 
   const priorityColor =
-    task.prio === 'high'
+    prioKey === 'high'
       ? 'bg-rose-500'
-      : task.prio === 'medium'
+      : prioKey === 'medium'
       ? 'bg-amber-500'
       : 'bg-emerald-500';
 
   const priorityLabel =
-    task.prio === 'high' ? t.high : task.prio === 'medium' ? t.medium : t.low;
+    prioKey === 'high' ? t.high : prioKey === 'medium' ? t.medium : t.low;
 
   return (
     <div
