@@ -1,129 +1,136 @@
 import React from 'react';
-import { Calendar, Plus, BarChart3, LayoutGrid, ListTodo } from 'lucide-react';
+import { Plus, BarChart3, LayoutGrid, ListTodo, Sliders } from 'lucide-react';
 import { ViewMode } from '../types';
 import { TRANSLATIONS } from '../utils/translations';
 
 interface Props {
   viewMode: ViewMode;
-  isTodaySelected: boolean;
   isBengali: boolean;
   onChangeViewMode: (mode: ViewMode) => void;
-  onGoToToday: () => void;
   onOpenAddTask: () => void;
+  onOpenToolsMenu: () => void;
 }
 
 export const MobileBottomNav: React.FC<Props> = ({
   viewMode,
-  isTodaySelected,
   isBengali,
   onChangeViewMode,
-  onGoToToday,
   onOpenAddTask,
+  onOpenToolsMenu,
 }) => {
   const t = TRANSLATIONS[isBengali ? 'bn' : 'en'];
 
+  const handleTabClick = (mode: ViewMode) => {
+    onChangeViewMode(mode);
+    // Smooth scroll down to main content if on mobile
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
-    <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-[#13161c]/95 backdrop-blur-md border-t border-slate-200/80 dark:border-slate-800/80 px-4 py-2 pb-safe no-print">
-      <div className="flex items-center justify-between max-w-md mx-auto">
-        {/* Today Tab */}
+    <nav
+      aria-label="Mobile Navigation"
+      className="md:hidden fixed bottom-0 left-0 right-0 z-50 pointer-events-auto bg-white/95 dark:bg-[#13161c]/95 backdrop-blur-md border-t border-slate-200/90 dark:border-slate-800 px-3 py-1.5 shadow-lg shadow-black/10 no-print"
+    >
+      <div className="flex items-center justify-between max-w-md mx-auto relative">
+        {/* Tab 1: Timeline List */}
         <button
           type="button"
-          onClick={() => {
-            onGoToToday();
-            onChangeViewMode('timeline');
-          }}
-          className={`flex flex-col items-center justify-center flex-1 py-1 text-center transition-colors ${
-            isTodaySelected && viewMode === 'timeline'
-              ? 'text-blue-600 dark:text-blue-400 font-bold'
-              : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+          onClick={() => handleTabClick('timeline')}
+          className={`flex flex-col items-center justify-center flex-1 min-h-[50px] py-1 text-center transition-all duration-150 cursor-pointer ${
+            viewMode === 'timeline'
+              ? 'text-blue-600 dark:text-blue-400 font-bold scale-105'
+              : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
           }`}
         >
           <div
             className={`px-3 py-1 rounded-full transition-all ${
-              isTodaySelected && viewMode === 'timeline'
-                ? 'bg-blue-50 dark:bg-blue-950/60'
+              viewMode === 'timeline'
+                ? 'bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400'
                 : ''
             }`}
           >
-            <Calendar size={18} />
+            <ListTodo size={20} />
           </div>
-          <span className="text-[10px] mt-0.5 tracking-tight">{t.today}</span>
+          <span className="text-[11px] mt-0.5 tracking-tight font-semibold">
+            {isBengali ? 'রুটিন' : 'Routine'}
+          </span>
         </button>
 
-        {/* 24h Schedule Tab */}
+        {/* Tab 2: 24h Schedule */}
         <button
           type="button"
-          onClick={() => onChangeViewMode('schedule24h')}
-          className={`flex flex-col items-center justify-center flex-1 py-1 text-center transition-colors ${
+          onClick={() => handleTabClick('schedule24h')}
+          className={`flex flex-col items-center justify-center flex-1 min-h-[50px] py-1 text-center transition-all duration-150 cursor-pointer ${
             viewMode === 'schedule24h'
-              ? 'text-blue-600 dark:text-blue-400 font-bold'
-              : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+              ? 'text-blue-600 dark:text-blue-400 font-bold scale-105'
+              : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
           }`}
         >
           <div
             className={`px-3 py-1 rounded-full transition-all ${
-              viewMode === 'schedule24h' ? 'bg-blue-50 dark:bg-blue-950/60' : ''
+              viewMode === 'schedule24h'
+                ? 'bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400'
+                : ''
             }`}
           >
-            <BarChart3 size={18} />
+            <BarChart3 size={20} />
           </div>
-          <span className="text-[10px] mt-0.5 tracking-tight">{isBengali ? '২৪ ঘণ্টা' : '24h'}</span>
+          <span className="text-[11px] mt-0.5 tracking-tight font-semibold">
+            {isBengali ? '২৪ ঘণ্টা' : '24 Hours'}
+          </span>
         </button>
 
-        {/* Floating Center Add Button in Material 3 style */}
-        <div className="flex-1 flex justify-center -mt-6">
+        {/* Center Floating Add Button */}
+        <div className="flex-1 flex justify-center -mt-7 shrink-0">
           <button
             type="button"
             onClick={onOpenAddTask}
             aria-label={t.addTask}
-            className="w-13 h-13 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center shadow-lg shadow-blue-600/30 active:scale-95 transition-transform"
+            title={t.addTask}
+            className="w-14 h-14 rounded-2xl bg-blue-600 hover:bg-blue-700 active:scale-90 text-white flex items-center justify-center shadow-lg shadow-blue-600/35 border-4 border-white dark:border-[#13161c] transition-all cursor-pointer"
           >
-            <Plus size={26} strokeWidth={2.5} />
+            <Plus size={28} strokeWidth={2.6} />
           </button>
         </div>
 
-        {/* Timeline Tab */}
+        {/* Tab 3: Full Week Matrix */}
         <button
           type="button"
-          onClick={() => onChangeViewMode('timeline')}
-          className={`flex flex-col items-center justify-center flex-1 py-1 text-center transition-colors ${
-            viewMode === 'timeline' && !isTodaySelected
-              ? 'text-blue-600 dark:text-blue-400 font-bold'
-              : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+          onClick={() => handleTabClick('weekmatrix')}
+          className={`flex flex-col items-center justify-center flex-1 min-h-[50px] py-1 text-center transition-all duration-150 cursor-pointer ${
+            viewMode === 'weekmatrix'
+              ? 'text-blue-600 dark:text-blue-400 font-bold scale-105'
+              : 'text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200'
           }`}
         >
           <div
             className={`px-3 py-1 rounded-full transition-all ${
-              viewMode === 'timeline' && !isTodaySelected
-                ? 'bg-blue-50 dark:bg-blue-950/60'
+              viewMode === 'weekmatrix'
+                ? 'bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400'
                 : ''
             }`}
           >
-            <ListTodo size={18} />
+            <LayoutGrid size={20} />
           </div>
-          <span className="text-[10px] mt-0.5 tracking-tight">{isBengali ? 'তালিকা' : 'Tasks'}</span>
+          <span className="text-[11px] mt-0.5 tracking-tight font-semibold">
+            {isBengali ? 'সপ্তাহ' : 'Week'}
+          </span>
         </button>
 
-        {/* Week Matrix Tab */}
+        {/* Tab 4: Settings & Tools Menu */}
         <button
           type="button"
-          onClick={() => onChangeViewMode('weekmatrix')}
-          className={`flex flex-col items-center justify-center flex-1 py-1 text-center transition-colors ${
-            viewMode === 'weekmatrix'
-              ? 'text-blue-600 dark:text-blue-400 font-bold'
-              : 'text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
-          }`}
+          onClick={onOpenToolsMenu}
+          className="flex flex-col items-center justify-center flex-1 min-h-[50px] py-1 text-center transition-all duration-150 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer"
         >
-          <div
-            className={`px-3 py-1 rounded-full transition-all ${
-              viewMode === 'weekmatrix' ? 'bg-blue-50 dark:bg-blue-950/60' : ''
-            }`}
-          >
-            <LayoutGrid size={18} />
+          <div className="px-3 py-1 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800">
+            <Sliders size={20} />
           </div>
-          <span className="text-[10px] mt-0.5 tracking-tight">{isBengali ? 'সপ্তাহ' : 'Week'}</span>
+          <span className="text-[11px] mt-0.5 tracking-tight font-semibold">
+            {isBengali ? 'মেনু' : 'Menu'}
+          </span>
         </button>
       </div>
-    </div>
+    </nav>
   );
 };

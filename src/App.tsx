@@ -32,6 +32,7 @@ import { CopyDayModal } from './components/CopyDayModal';
 import { MobileBottomNav } from './components/MobileBottomNav';
 import { Toast } from './components/Toast';
 import { OfflineIndicator } from './components/OfflineIndicator';
+import { ToolsMenuModal } from './components/ToolsMenuModal';
 
 export default function App() {
   const [state, setState] = useState<RoutineState>(getInitialState);
@@ -46,6 +47,7 @@ export default function App() {
   const [editingTask, setEditingTask] = useState<Task | null>(null);
   const [isPresetsModalOpen, setIsPresetsModalOpen] = useState(false);
   const [isCopyModalOpen, setIsCopyModalOpen] = useState(false);
+  const [isToolsMenuOpen, setIsToolsMenuOpen] = useState(false);
 
   // Toast feedback
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -373,30 +375,12 @@ export default function App() {
       {/* Top Bar Navigation */}
       <Header
         viewMode={viewMode}
-        isDark={state.dark}
         isBengali={isBengali}
-        notificationsEnabled={state.notificationsEnabled}
-        soundEnabled={state.soundEnabled}
-        format12h={state.timeFormat === '12h'}
         currentTimeString={currentTimeString}
         currentDateString={currentDateString}
         greetingText={greetingText}
         onChangeViewMode={setViewMode}
-        onToggleDark={() => setState((prev) => ({ ...prev, dark: !prev.dark }))}
-        onToggleLang={() => setState((prev) => ({ ...prev, lang: prev.lang === 'bn' ? 'en' : 'bn' }))}
-        onToggleSound={() => {
-          const next = !state.soundEnabled;
-          setState((prev) => ({ ...prev, soundEnabled: next }));
-          showToast(next ? (isBengali ? 'সাউন্ড চালু হয়েছে' : 'Sound chime enabled') : (isBengali ? 'সাউন্ড বন্ধ করা হয়েছে' : 'Sound muted'));
-        }}
-        onToggleNotification={handleToggleNotifications}
-        onToggleTimeFormat={() =>
-          setState((prev) => ({ ...prev, timeFormat: prev.timeFormat === '12h' ? '24h' : '12h' }))
-        }
-        onOpenPresets={() => setIsPresetsModalOpen(true)}
-        onExport={() => exportRoutineAsJson(state)}
-        onTriggerImport={handleTriggerImport}
-        onPrint={() => window.print()}
+        onOpenToolsMenu={() => setIsToolsMenuOpen(true)}
       />
 
       {/* Main Content Viewport */}
@@ -679,14 +663,43 @@ export default function App() {
         </div>
       </main>
 
-      {/* Mobile Floating Bottom Bar */}
+      {/* Responsive Bottom Navigation Bar */}
       <MobileBottomNav
         viewMode={viewMode}
-        isTodaySelected={isSelectedToday}
         isBengali={isBengali}
         onChangeViewMode={setViewMode}
-        onGoToToday={() => setSelectedDay(todayDay)}
         onOpenAddTask={() => handleOpenAddTask()}
+        onOpenToolsMenu={() => setIsToolsMenuOpen(true)}
+      />
+
+      {/* Unified Tools & Settings Menu Modal */}
+      <ToolsMenuModal
+        isOpen={isToolsMenuOpen}
+        isDark={state.dark}
+        isBengali={isBengali}
+        notificationsEnabled={state.notificationsEnabled}
+        soundEnabled={state.soundEnabled}
+        format12h={state.timeFormat === '12h'}
+        currentTimeString={currentTimeString}
+        currentDateString={currentDateString}
+        greetingText={greetingText}
+        onClose={() => setIsToolsMenuOpen(false)}
+        onToggleDark={() => setState((prev) => ({ ...prev, dark: !prev.dark }))}
+        onToggleLang={() => setState((prev) => ({ ...prev, lang: prev.lang === 'bn' ? 'en' : 'bn' }))}
+        onToggleSound={() => {
+          const next = !state.soundEnabled;
+          setState((prev) => ({ ...prev, soundEnabled: next }));
+          showToast(next ? (isBengali ? 'সাউন্ড চালু হয়েছে' : 'Sound chime enabled') : (isBengali ? 'সাউন্ড বন্ধ করা হয়েছে' : 'Sound muted'));
+        }}
+        onToggleNotification={handleToggleNotifications}
+        onToggleTimeFormat={() =>
+          setState((prev) => ({ ...prev, timeFormat: prev.timeFormat === '12h' ? '24h' : '12h' }))
+        }
+        onOpenPresets={() => setIsPresetsModalOpen(true)}
+        onOpenCopyModal={() => setIsCopyModalOpen(true)}
+        onExport={() => exportRoutineAsJson(state)}
+        onTriggerImport={handleTriggerImport}
+        onPrint={() => window.print()}
       />
 
       {/* Task Add / Edit Modal Sheet */}
