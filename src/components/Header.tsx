@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { ViewMode } from '../types';
 import { TRANSLATIONS } from '../utils/translations';
+import { PWAInstallButton } from './PWAInstallButton';
 
 interface Props {
   viewMode: ViewMode;
@@ -145,6 +146,9 @@ export const Header: React.FC<Props> = ({
 
         {/* Zone 3: Quick Action Tools & Live Clock */}
         <div className="flex items-center gap-1.5 sm:gap-2">
+          {/* PWA Install Button */}
+          <PWAInstallButton isBengali={isBengali} />
+
           {/* Live digital time readout on desktop */}
           <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100/90 dark:bg-slate-800/80 text-xs font-semibold tabular-nums text-blue-700 dark:text-blue-300 border border-slate-200/80 dark:border-slate-700/60 shadow-2xs">
             <span className="relative flex h-2 w-2">

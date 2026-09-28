@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="50%" stop-color="#4f46e5" />
+      <stop offset="100%" stop-color="#0d9488" />
+    </linearGradient>
+    <linearGradient id="sheetGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f8fafc" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0f172a" flood-opacity="0.22" />
+    </filter>
+  </defs>
+
+  <!-- Background Squircle -->
+  <rect width="512" height="512" rx="128" fill="url(#bgGrad)" />
+
+  <!-- Calendar Page Card -->
+  <g filter="url(#shadow)">
+    <rect x="96" y="96" width="320" height="320" rx="44" fill="url(#sheetGrad)" />
+    <!-- Calendar Top Header Strip -->
+    <path d="M 96,140 C 96,115.69 115.69,96 140,96 L 372,96 C 396.31,96 416,115.69 416,140 L 416,168 L 96,168 Z" fill="#2563eb" />
+    
+    <!-- Calendar Binder Rings -->
+    <rect x="160" y="72" width="24" height="48" rx="12" fill="#ffffff" />
+    <rect x="328" y="72" width="24" height="48" rx="12" fill="#ffffff" />
+
+    <!-- Clock Face -->
+    <circle cx="256" cy="288" r="80" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="8" />
+    
+    <!-- Clock Center Dot -->
+    <circle cx="256" cy="288" r="8" fill="#2563eb" />
+    
+    <!-- Clock Hands (Hour & Minute pointing to 9:15 / productive time) -->
+    <line x1="256" y1="288" x2="256" y2="236" stroke="#1e293b" stroke-width="8" stroke-linecap="round" />
+    <line x1="256" y1="288" x2="296" y2="288" stroke="#2563eb" stroke-width="6" stroke-linecap="round" />
+
+    <!-- Subtle Success Checkmark Badge -->
+    <circle cx="330" cy="340" r="28" fill="#10b981" />
+    <path d="M318 340 L326 348 L342 332" fill="none" stroke="#ffffff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+</svg>

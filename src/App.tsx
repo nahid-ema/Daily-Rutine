@@ -31,6 +31,7 @@ import { PresetsModal } from './components/PresetsModal';
 import { CopyDayModal } from './components/CopyDayModal';
 import { MobileBottomNav } from './components/MobileBottomNav';
 import { Toast } from './components/Toast';
+import { OfflineIndicator } from './components/OfflineIndicator';
 
 export default function App() {
   const [state, setState] = useState<RoutineState>(getInitialState);
@@ -365,6 +366,9 @@ export default function App() {
     <div className="min-h-screen bg-[#f8fafd] dark:bg-[#0c0e12] text-slate-900 dark:text-slate-100 flex flex-col font-sans transition-colors pb-24 md:pb-12">
       {/* Toast Alert */}
       <Toast message={toastMessage} />
+
+      {/* Offline Mode Indicator */}
+      <OfflineIndicator isBengali={isBengali} />
 
       {/* Top Bar Navigation */}
       <Header
